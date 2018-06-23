@@ -1,18 +1,20 @@
 <template>
-	<div id="loginBox">
-		<Card style="width:320px">
-	        <div style="text-align:center">
-	            <img :style="{width:'300px',height:'210px'}" src="../images/girl2.jpg"/>
-	            <Input type="text" v-model="username" placeholder="用户名" clearable style="width: 300px"></Input>
-	            <Input type="password" v-model="password" placeholder="密码" clearable style="width: 300px"></Input>
-	            <Button :type="signInBtnType" @click="signIn">登录</Button>
-    			<Button :type="signOutBtnType" @click="signUp">注册</Button>
-	        </div>
-	    </Card>
+	<div class = "loginBackground">
+		<div id="loginBox">
+			<Card style="width:330px">
+		        <div style="text-align:center">
+		            <img :style="{width:'300px',height:'210px'}" src="../images/girl2.jpg"/>
+		            <Input type="text" v-model="username" placeholder="用户名" clearable style="width: 300px"></Input>
+		            <Input type="password" v-model="password" placeholder="密码" clearable style="width: 300px"></Input>
+		            <Button :type="signInBtnType" @click="signIn">登录</Button>
+	    			<Button :type="signOutBtnType" @click="signUp">注册</Button>
+		        </div>
+		    </Card>
+		</div>
 	</div>
-    
 </template>
 <script>
+	import '../css/login.css';
     export default {
         data: function(){
         	return {
@@ -56,10 +58,7 @@
         		if (_this.signInOrSignUp){
         			_this.signInOrSignUp = false;
         		} else {
-        			var params = new URLSearchParams();
-        			params.append('username',_this.username);
-        			params.append('password',_this.password);
-        			_this.$axios.put(_this.url,{
+        			_this.$axios.post(_this.url,{
         				username: _this.username,
         				password: _this.password
         			})
@@ -73,3 +72,6 @@
         }
     }
 </script>
+<style scoped>
+
+</style>

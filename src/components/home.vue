@@ -5,6 +5,7 @@
     position: relative;
     border-radius: 4px;
     overflow: hidden;
+    height: 100%;
 }
 .layout-logo{
     width: 100px;
@@ -97,4 +98,5 @@
         
     }
 </script>
+
 

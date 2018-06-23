@@ -2,6 +2,8 @@ import Vue from 'vue';
 import App from './src/components/app.vue';
 import iView from 'iview';
 import './node_modules/iview/dist/styles/iview.css';
+import './src/css/main.css';
+import './my-theme/index.less';
 //引入 Vue router
 import router from './src/js/router.js';
 //引入 axios

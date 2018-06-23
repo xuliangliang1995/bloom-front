@@ -1,0 +1,14 @@
+#loginBox{
+	position: absolute;
+	margin: auto;
+	height:350px;
+	width:320px;
+	left:0;
+	top:0;
+	bottom:0;
+	right:0;
+}
+.loginBackground{
+	background-image: url(../images/timg.jpg);
+	background-size: 100%;
+}
