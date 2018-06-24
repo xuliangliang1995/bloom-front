@@ -11,7 +11,7 @@ import axios from 'axios';
 
 Vue.use(iView);
 var customAxios = axios.create({
-	baseURL: 'http://localhost/',
+	baseURL: '/',
 	timeout: 1000,
 	transformRequest: [function (data) {
     	// 对 data 进行任意转换处理

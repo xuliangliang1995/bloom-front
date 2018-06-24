@@ -7,15 +7,22 @@
     overflow: hidden;
     height: 100%;
 }
+.ivu-layout-header{
+	background:white
+}
 .layout-logo{
     width: 100px;
     height: 30px;
-    background: #5b6270;
+    /*background: #5b6270;*/
     border-radius: 3px;
     float: left;
     position: relative;
     top: 15px;
     left: 20px;
+}
+.logo{
+	width: 100%;
+	width: 100%;
 }
 .layout-nav{
     width: 420px;
@@ -25,68 +32,45 @@
 </style>
 <template>
     <div class="layout">
-        <Layout>
+        <Layout  :style="{height: '100%'}">
             <Header>
-                <Menu mode="horizontal" theme="dark" active-name="1">
-                    <div class="layout-logo"></div>
+                <Menu mode="horizontal" theme="light" :active-name="activeTag" @on-select="cutMenu">
+                    <div class="layout-logo">
+                    	<img class="logo" src="../images/logo.jpg"/>
+                    </div>
                     <div class="layout-nav">
-                        <MenuItem name="1">
-                            <Icon type="ios-navigate"></Icon>
-                            Item 1
-                        </MenuItem>
-                        <MenuItem name="2">
-                            <Icon type="ios-keypad"></Icon>
-                            Item 2
-                        </MenuItem>
-                        <MenuItem name="3">
-                            <Icon type="ios-analytics"></Icon>
-                            Item 3
-                        </MenuItem>
-                        <MenuItem name="4">
-                            <Icon type="ios-paper"></Icon>
-                            Item 4
-                        </MenuItem>
+                    	<template v-for="tag in tags">
+                    		<MenuItem :name="tag.name">
+                    			<Icon :type="tag.icon"></Icon>
+                    			{{tag.name}}
+                    		</MenuItem>
+                    	</template>
                     </div>
                 </Menu>
             </Header>
-            <Layout>
-                <Sider hide-trigger :style="{background: '#fff'}">
-                    <Menu active-name="1-2" theme="light" width="auto" :open-names="['1']">
-                        <Submenu name="1">
-                            <template slot="title">
-                                <Icon type="ios-navigate"></Icon>
-                                Item 1
-                            </template>
-                            <MenuItem name="1-1">Option 1</MenuItem>
-                            <MenuItem name="1-2">Option 2</MenuItem>
-                            <MenuItem name="1-3">Option 3</MenuItem>
-                        </Submenu>
-                        <Submenu name="2">
-                            <template slot="title">
-                                <Icon type="ios-keypad"></Icon>
-                                Item 2
-                            </template>
-                            <MenuItem name="2-1">Option 1</MenuItem>
-                            <MenuItem name="2-2">Option 2</MenuItem>
-                        </Submenu>
-                        <Submenu name="3">
-                            <template slot="title">
-                                <Icon type="ios-analytics"></Icon>
-                                Item 3
-                            </template>
-                            <MenuItem name="3-1">Option 1</MenuItem>
-                            <MenuItem name="3-2">Option 2</MenuItem>
-                        </Submenu>
+            <Layout :style="{height: '100%'}">
+                <Sider hide-trigger :style="{background: '#fff',height: '100%'}">
+                    <Menu active-name="1-2" theme="light" width="auto" height="100%" :open-names="['1']">
+                        <template v-for="menu in menus">
+                        	<Submenu :name="menu.name">
+                        		<template slot="title">
+                        			<Icon :type="menu.icon"></Icon>
+                        			{{menu.name}}
+                        		</template>
+                        		<template v-for="subMenu in menu.menu">
+                        			<MenuItem :name="subMenu.name">{{subMenu.name}}</MenuItem>
+                        		</template>
+                        	</Submenu>
+                        </template>
                     </Menu>
                 </Sider>
-                <Layout :style="{padding: '0 24px 24px'}">
-                    <Breadcrumb :style="{margin: '24px 0'}">
+                <Layout :style="{padding: '24px 24px 24px'}">
+                    <!--<Breadcrumb :style="{margin: '24px 0'}">
                         <BreadcrumbItem>Home</BreadcrumbItem>
                         <BreadcrumbItem>Components</BreadcrumbItem>
                         <BreadcrumbItem>Layout</BreadcrumbItem>
-                    </Breadcrumb>
-                    <Content :style="{padding: '24px', minHeight: '280px', background: '#fff'}">
-                        Content
+                    </Breadcrumb>-->
+                    <Content :style="{padding: '24px', height: '100%', background: '#fff'}">
                     </Content>
                 </Layout>
             </Layout>
@@ -94,8 +78,102 @@
     </div>
 </template>
 <script>
+	var tag = [
+        			{
+    					name: "花间",
+    					icon: "leaf",
+    					menu: [{
+	    						name: "花间集",
+	    						icon: "leaf",
+	    						menu:[{
+			    							name: "flower1"
+			    						},{
+			    							name: "flower2"
+			    						},{
+			    							name: "flower3"
+			    						}]
+	    					}]
+        			},
+        			{
+    					name: "流年",
+    					icon: "social-twitter-outline",
+    					menu: [{
+	    						name: "荏苒星霜",
+	    						icon: "social-twitter-outline",
+	    						menu:[{
+			    							name: "flower1"
+			    						},{
+			    							name: "flower2"
+			    						},{
+			    							name: "flower3"
+			    						}]
+	    					}]
+        			},
+        			{
+    					name: "成就",
+    					icon: "trophy",
+    					menu: [{
+	    						name: "成就",
+	    						icon: "trophy",
+	    						menu:[{
+			    							name: "flower1"
+			    						},{
+			    							name: "flower2"
+			    						},{
+			    							name: "flower3"
+			    						}]
+	    					}]
+        			},
+        			{
+    					name: "花匠",
+    					icon: "person",
+    					menu: [{
+	    						name: "花匠",
+	    						icon: "person",
+	    						menu:[{
+			    							name: "flower1"
+			    						},{
+			    							name: "flower2"
+			    						},{
+			    							name: "flower3"
+			    						}]
+	    					}]
+        			}
+        		];
     export default {
-        
+       /* props:{
+        	menu:{
+        		type: Object
+        	}
+        },*/
+        data: function(){
+        	return {
+        		tag: tag,
+        		activeTag: '',
+        		menus: ''
+        	}
+        },
+        computed: {
+        	tags: function(){
+        		var _this = this;
+        		var tags = _this.tag;
+        		_this.activeTag = tags[0].name;
+        		_this.menus = tags[0].menu;
+        		return tags;
+        	}
+        },
+        methods: {
+        	cutMenu: function(tagName){
+        		var _this = this;
+        		var tags = _this.tag;
+        		_this.activeTag = tagName;
+        		for(var i = 0;i < tags.length; i++){
+        			if(tags[i].name == tagName ){
+        				_this.menus = tags[i].menu;
+        			}
+        		}
+        	}
+        }
     }
 </script>
 
